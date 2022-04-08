@@ -40,11 +40,11 @@ enum ascii_colors {
 #define bold(fmt)   "<b>" fmt "</b>"
 #define italic(fmt) "<i>" fmt "</i>"
 
+#endif /* LOGS_COLORS */
+
 #define $(code) fprintf(logs, "%s: %s\n", __PRETTY_FUNCTION__, #code); code
 
 #define $$ fprintf(logs, "%s: %d\n", __PRETTY_FUNCTION__, __LINE__);
-
-#endif /* LOGS_COLORS */
 
 
 #endif /* LOGS_H */
