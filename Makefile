@@ -50,8 +50,6 @@ TXFLAGS =  -g --static-pie -std=c++14 -fmax-errors=100 -Wall -Wextra       \
 	   -fsanitize=vptr                                                 \
 	   -lm -pie                                          
 
-LOGS = logs.html
-
 CXXFLAGS = -D 'LOGS_FILE="$(LOGS)"' $(TXFLAGS)
 CXX = g++
 
