@@ -62,8 +62,6 @@ char *local_time(const char *const fmt)
         return str_tm;
 }
 
-#ifdef LOGS_MEMORY
-
 void *__logs_calloc(size_t num, size_t size, unsigned line, const char *func, const char *file);
 void *__logs_realloc(void *ptr, size_t size, unsigned line, const char *func, const char *file);
 void  __logs_free(void *ptr, unsigned line, const char *func, const char *file);
@@ -97,5 +95,3 @@ void __logs_free(void *ptr, unsigned line, const char *func, const char *file)
         fprintf(logs, "%s:%u:%s: free(%p)\n", file, line, func, ptr);
         free(ptr); 
 }
-
-#endif /* LOGS_MEMORY */
