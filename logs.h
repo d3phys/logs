@@ -46,5 +46,12 @@ enum ascii_colors {
 
 #define $$ fprintf(logs, "%s: %d\n", __PRETTY_FUNCTION__, __LINE__);
 
+#define plogs(fmt, ...)                                                           \
+        do {                                                                      \
+                int __logs_saved_errno = errno;                                   \
+                fprintf(logs, "%s:%i:%s: " fmt,                                   \
+                        __FILE__,  __LINE__, __PRETTY_FUNCTION__, ##__VA_ARGS__); \
+                errno = __logs_saved_errno;                                       \
+        } while (0)
 
 #endif /* LOGS_H */
