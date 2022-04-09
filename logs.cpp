@@ -79,7 +79,6 @@ void *__logs_calloc(size_t num, size_t size, unsigned line, const char *func, co
 
 void *__logs_realloc(void *ptr, size_t size, unsigned line, const char *func, const char *file)
 {
-        assert(ptr);
         assert(size);
         
         ptr = realloc(ptr, size);
