@@ -3,6 +3,27 @@
 # 2022, d3phys
 #
 
+CXX      = g++ 
+CXXFLAGS = $(LOGSFLAGS) $(TXFLAGS)
+
+HPATH = ./
+LOGS_FILE = logsl.html
+LOGSFLAGS = -D LOGS_COLORS -D LOGS_FILE='"$(LOGS_FILE)"'
+
+logs.o: logs.cpp
+	$(CXX) $(addprefix -I, $(HPATH)) $(CXXFLAGS) -c logs.cpp -o logs.o	
+
+test: logs.o test/main.o
+	$(CXX) $(addprefix -I, $(HPATH)) $(CXXFLAGS) logs.o test/main.o -o bin
+	
+clean:
+	@rm -f *.o
+	@rm -f test/*.o
+	@rm -f bin
+	@rm -f $(LOGS_FILE)
+
+.PHONY: make clean test
+
 #
 # Awesome flags collection
 # Copyright (C) 2021, 2022 ded32, the TXLib creator
@@ -49,14 +70,3 @@ TXFLAGS =  -g --static-pie -std=c++14 -fmax-errors=100 -Wall -Wextra       \
 	   -fsanitize=vla-bound                                            \
 	   -fsanitize=vptr                                                 \
 	   -lm -pie                                          
-
-CXXFLAGS = -D 'LOGS_FILE="$(LOGS)"' $(TXFLAGS)
-CXX = g++
-
-make: logs.cpp
-	$(CXX) $(CXXFLAGS) -c -I./ logs.cpp -o logs.o	
-
-clean:
-	@rm -f *.o
-
-.PHONY: make clean
