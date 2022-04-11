@@ -3,12 +3,14 @@
 # 2022, d3phys
 #
 
+ifeq ($(MAKELEVEL),0)
 CXX      = g++ 
 CXXFLAGS = $(LOGSFLAGS) $(TXFLAGS)
 
 HPATH = ./
 LOGS_FILE = logsl.html
 LOGSFLAGS = -D LOGS_COLORS -D LOGS_FILE='"$(LOGS_FILE)"'
+endif
 
 logs.o: logs.cpp
 	$(CXX) $(addprefix -I, $(HPATH)) $(CXXFLAGS) -c logs.cpp -o logs.o	
