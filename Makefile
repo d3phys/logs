@@ -5,18 +5,20 @@
 
 ifeq ($(MAKELEVEL),0)
 CXX      = g++ 
-CXXFLAGS = $(LOGSFLAGS) $(TXFLAGS)
+CXXFLAGS = $(addprefix -I, $(HPATH)) $(LOGSFLAGS) $(TXFLAGS)
 
-HPATH = ./
 LOGS_FILE = logsl.html
 LOGSFLAGS = -D LOGS_COLORS -D LOGS_FILE='"$(LOGS_FILE)"'
 endif
+
+# Header files #
+HPATH = ./
 
 logs.o: logs.cpp
 	$(CXX) $(addprefix -I, $(HPATH)) $(CXXFLAGS) -c logs.cpp -o logs.o	
 
 test: logs.o test/main.o
-	$(CXX) $(addprefix -I, $(HPATH)) $(CXXFLAGS) logs.o test/main.o -o bin
+	$(CXX) $(CXXFLAGS) logs.o test/main.o -o bin
 	
 clean:
 	@rm -f *.o
