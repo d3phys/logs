@@ -43,7 +43,7 @@ enum ascii_colors {
 #endif /* LOGS_COLORS */
 
 
-#ifdef DEBUG
+#ifdef LOGS_DEBUG
 
 #define $(code) fprintf(logs, "%s: %s\n", __PRETTY_FUNCTION__, #code); code
 #define $$ fprintf(logs, "%s: %d\n", __PRETTY_FUNCTION__, __LINE__);
@@ -53,10 +53,10 @@ enum ascii_colors {
 #define $(code) code
 #define $$
 
-#endif /* DEBUG */
+#endif /* LOGS_DEBUG */
 
 
-#ifdef DEBUG
+#ifdef LOGS_DEBUG
 
 #define plogs(fmt, ...)                                                           \
         do {                                                                      \
@@ -71,6 +71,6 @@ enum ascii_colors {
 #define plogs(fmt, ...) \
         do {} while(0)
 
-#endif /* DEBUG */
+#endif /* LOGS_DEBUG */
 
 #endif /* LOGS_H */
