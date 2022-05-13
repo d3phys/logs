@@ -11,7 +11,7 @@ LOGS_FILE = logsl.html
 LOGSFLAGS = -D LOGS_COLORS -D LOGS_FILE='"$(LOGS_FILE)"'
 endif
 
-# Header files #
+# Header files
 HPATH = ./
 
 logs.o: logs.cpp
@@ -19,7 +19,18 @@ logs.o: logs.cpp
 
 test: logs.o test/main.o
 	$(CXX) $(CXXFLAGS) logs.o test/main.o -o bin
-	
+
+dep:
+	@sed '/\#\#\# Dependencies \#\#\#/q' < Makefile > temp_make
+	@if [[ "$(wildcard *.cpp)" != "" ]]; then $(CPP) -MM *.cpp $(addprefix -I, $(HPATH)) >> temp_make; fi
+	@cp temp_make Makefile
+	@rm temp_make
+
+rmdep:
+	@sed '/\#\#\# Dependencies \#\#\#/q' < Makefile > temp_make
+	@cp temp_make Makefile
+	@rm temp_make
+
 clean:
 	@rm -f *.o
 	@rm -f test/*.o
@@ -74,3 +85,5 @@ TXFLAGS =  -g --static-pie -std=c++14 -fmax-errors=100 -Wall -Wextra       \
 	   -fsanitize=vla-bound                                            \
 	   -fsanitize=vptr                                                 \
 	   -lm -pie                                          
+
+### Dependencies ###
